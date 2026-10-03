@@ -1,0 +1,47 @@
+[package]
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2024"
+rust-version = "1.90"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.1", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.12.1", features = ["protocol-asset", "tray-icon"] }
+tauri-plugin-log = "2"
+walkdir = "2.5.0"
+tauri-plugin-dialog = "2.8.1"
+rusqlite = { version = "0.40.2", features = ["bundled", "vtab"] }
+image = "0.25.10"
+num_cpus = "1.16.0"
+windows = { version = "0.58.0", features = [
+    "Storage",
+    "Graphics_Imaging",
+    "Media_Ocr",
+    "Globalization",
+    "Foundation",
+    "Foundation_Collections",
+    "Storage_Streams"
+] }
+opener = "0.9.0"
+arboard = "3.6.1"
+image_hasher = "3.1.1"
+trash = "5.2.9"
+notify = "8.2.0"
+crossbeam-channel = "0.5.17"
+regex = "1.13.1"
+tauri-plugin-autostart = "2.7.0"

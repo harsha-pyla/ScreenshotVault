@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js with npm caching
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # Install the stable Rust toolchain
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # Enable caching for Rust dependencies to speed up builds
+      - name: Setup Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+
+      # Install Node.js dependencies cleanly
+      - name: Install frontend dependencies
+        run: npm ci
+
+      # Build the Tauri app and publish the Draft Release
+      - name: Build and Release Tauri App
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "ScreenshotVault ${{ github.ref_name }}"
+          releaseBody: "Download the .exe installer below. See the README for the SmartScreen note."
+          releaseDraft: true
+          prerelease: false
