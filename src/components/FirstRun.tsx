@@ -1,4 +1,4 @@
-import { Shield, FolderPlus, Search, CheckCircle2 } from 'lucide-react';
+import { FolderPlus, Search, CheckCircle2 } from 'lucide-react';
 import { useLibraryStore } from '../store/libraryStore';
 import { open } from '@tauri-apps/plugin-dialog';
 import { invoke } from '@tauri-apps/api/core';

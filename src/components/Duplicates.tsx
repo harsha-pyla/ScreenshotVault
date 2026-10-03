@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { invoke, convertFileSrc } from '@tauri-apps/api/core';
-import { Trash2, Loader2, Image as ImageIcon, CloudOff } from 'lucide-react';
+import { Trash2, Loader2, CloudOff } from 'lucide-react';
 
 interface DuplicateImage {
   id: number;

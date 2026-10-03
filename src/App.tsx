@@ -53,7 +53,7 @@ function useDebounce<T>(value: T, delay: number): T {
 
 function App() {
   const theme = useThemeStore(state => state.theme);
-  const { folders, addFolder, removeFolder, startMinimized, setStartMinimized, enableSensitiveDetection, setEnableSensitiveDetection } = useLibraryStore();
+  const { folders, addFolder, removeFolder, startMinimized, enableSensitiveDetection } = useLibraryStore();
   
   const [stats, setStats] = useState<LibraryStats | null>(null);
   const [libraryVersion, setLibraryVersion] = useState(0);
@@ -61,8 +61,6 @@ function App() {
   const [isFirstRun, setIsFirstRun] = useState(() => localStorage.getItem('firstRunDone') !== 'true');
   const [progress, setProgress] = useState<IndexerProgress | null>(null);
   const [currentView, setCurrentView] = useState<'library' | 'duplicates' | 'settings' | 'about'>('library');
-  const [ocrLanguages, setOcrLanguages] = useState<string[]>([]);
-  const [selectedLang, setSelectedLang] = useState<string>('');
 
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 150);
@@ -141,12 +139,7 @@ function App() {
       }
     });
     
-    invoke<string[]>('get_ocr_languages').then(langs => {
-      setOcrLanguages(langs);
-      if (langs.length > 0) {
-        setSelectedLang(langs[0]);
-      }
-    });
+    
 
     return () => {
       unlistenProgress.then(f => f());
@@ -265,11 +258,6 @@ function App() {
     await invoke('toggle_pause');
   };
 
-  const handleLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const lang = e.target.value;
-    setSelectedLang(lang);
-    invoke('set_ocr_language', { lang });
-  };
 
   return (
     <div className="flex flex-col h-screen bg-background text-text overflow-hidden rounded-[4px] border border-border font-sans relative">

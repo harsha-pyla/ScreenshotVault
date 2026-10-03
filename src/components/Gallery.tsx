@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { invoke, convertFileSrc } from '@tauri-apps/api/core';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Image as ImageIcon, Lock, CloudOff } from 'lucide-react';
+import { Lock, CloudOff } from 'lucide-react';
 
 interface SearchResult {
   id: number;

@@ -68,7 +68,7 @@ export function DetailsPanel({ image, query, width, setWidth }: { image: SearchR
     );
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = (_e: React.MouseEvent) => {
     isDragging.current = true;
     document.body.style.cursor = 'col-resize';
   };
